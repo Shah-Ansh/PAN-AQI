@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="PAN-AQI: a panoramic dataset and framework for urban air quality estimation.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAN-AQI: A Panoramic Dataset and Framework for Urban Air Quality Estimation</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script defer src="./static/js/main.js"></script>
+</head>
+<body>
+  <div id="top-progress"><div id="top-progress-bar"></div></div>
+  <a href="#abstract" class="skip-link">Skip to main content</a>
+
+<section class="hero project-hero is-medium">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-10 has-text-centered">
+          <h1 class="title is-1 publication-title">PAN-AQI: A Panoramic Dataset and Framework for Urban Air Quality Estimation.</h1>
+
+          <div class="publication-meta">
+              <div class="publication-authors">
+                <a class="author-link" href="https://github.com/Shah-Ansh" target="_blank" rel="noopener">Ansh Jalpenkumar Shah</a>
+                <span class="author-sep">·</span>
+                <a class="author-link" href="https://omkathalkar.github.io/" target="_blank" rel="noopener">Om Rajendra Kathalkar</a>
+                <span class="author-sep">·</span>
+                <a class="author-link" href="https://faculty.iiit.ac.in/~sachin.c/" target="_blank" rel="noopener">Sachin Chaudhari</a>
+                <span class="author-sep">·</span>
+                <a class="author-link" href="https://faculty.iiit.ac.in/~anoop/" target="_blank" rel="noopener">Anoop Namboodiri</a>
+              </div>
+
+              <div class="publication-affiliation">Signal Processing and Communication Research Center (SPCRC) &amp; CVIT — International Institute of Information Technology, Hyderabad</div>
+
+          </div>
+
+          <div class="publication-links hero-actions">
+            <a href="https://github.com/" target="_blank" rel="noopener" class="button is-medium is-rounded is-dark">Sample Dataset</a>
+            <a href="#resources" class="button is-medium is-rounded is-light">Figures</a>
+            <a href="#" class="button is-medium is-rounded">Code (coming)</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-abstract" id="abstract">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <div class="abstract-shell">
+          <p class="section-kicker">Abstract</p>
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified abstract-text">
+            <p>
+              Image-based air quality estimation offers a scalable alternative to sparse sensor-based monitoring. However, existing methods rely on narrow field-of-view imagery and overlook both the spatial structure of panoramic scenes and the ordinal nature of Air Quality Index prediction. To address these limitations, PAN-AQI introduces a large-scale dataset comprising 33,982 panoramic 360° street-view images collected over 1,000 km across the twin city of Hyderabad and Secunderabad, India, with co-located PM2.5, PM10, temperature, and humidity measurements. The paper further proposes PANQIFormer, a multimodal transformer framework that jointly models panoramic visual context and environmental metadata for AQI estimation. The architecture combines spatial-zone reasoning, attention-based multimodal fusion, and ordinal-aware learning to perform both AQI category classification and continuous AQI regression. Experiments demonstrate consistent improvements over previous image-based AQI methods across both tasks, while ablation studies show that panoramic coverage, spatial reasoning, and multimodal fusion each contribute substantially to performance. Together, PAN-AQI and PANQIFormer establish panoramic sensing as a promising direction for scalable vision-based air-quality monitoring.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-resources" id="resources">
+  <div class="container is-max-desktop">
+    <nav id="section-toc" aria-label="Section navigation">
+      <a href="#abstract" class="toc-link" data-target="abstract">Abstract</a>
+      <a href="#resources" class="toc-link" data-target="resources">Figures</a>
+    </nav>
+    <div class="section-heading has-text-centered">
+      <h2 class="title is-3">Architecure, Attention Maps & More</h2>
+    </div>
+
+    <div class="columns is-variable is-6 is-multiline">
+      <div class="column is-12">
+        <div class="figure-shell">
+          <img src="./resources/images/architecture_diagram-1.png" alt="Architecture placeholder">
+          <p class="figure-caption">Architecture diagram</p>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="columns is-variable is-6 is-multiline">
+      <div class="column is-12">
+        <div class="figure-shell">
+          <img src="./resources/images/pano.jpg" alt="Architecture placeholder">
+          <p class="figure-caption">Sample dataset image</p>
+        </div>
+      </div>
+    </div>
+    </div>
+
+        <div class="columns is-variable is-6 is-multiline">
+      <div class="column is-12">
+        <div class="figure-shell">
+          <img src="./resources/images/merged_gradcam.png" alt="Poster placeholder">
+          <p class="figure-caption">Gradcam</p>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="columns">
+        <div class="column is-6">
+            <div class="figure-shell">
+                <img src="./resources/images/setup_diagram-1.png" alt="Setup placeholder">
+                <p class="figure-caption">Setup diagram</p>
+            </div>
+        </div>
+
+        <div class="column is-6">
+            <div class="figure-shell">
+            <img src="./resources/images/dataset_diagram-1.png" alt="Attention placeholder">
+            <p class="figure-caption">Dataset Distribution</p>
+            </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>Built from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> template and adapted for the PAN-AQI release page.</p>
+    </div>
+  </div>
+</footer>
+<button id="backToTop" class="back-to-top" aria-label="Back to top">⬆</button>
+
+</body>
+</html>

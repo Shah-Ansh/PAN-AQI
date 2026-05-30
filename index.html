@@ -2,139 +2,548 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="PAN-AQI: a panoramic dataset and framework for urban air quality estimation.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PAN-AQI: A Panoramic Dataset and Framework for Urban Air Quality Estimation</title>
+  <meta name="description" content="PAN-AQI: A Panoramic Dataset and Framework for Urban Air Quality Estimation. 33,982 panoramic images, PANQIFormer architecture, ordinal AQI learning.">
+  <title>PAN-AQI — Panoramic AQI Estimation</title>
 
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 
-  <script defer src="./static/js/main.js"></script>
+  <link rel="stylesheet" href="./static/css/pan-aqi.css">
 </head>
 <body>
-  <div id="top-progress"><div id="top-progress-bar"></div></div>
-  <a href="#abstract" class="skip-link">Skip to main content</a>
+<div id="top" aria-hidden="true"></div>
+<div id="reading-progress" aria-hidden="true"><div id="reading-progress-bar"></div></div>
 
-<section class="hero project-hero is-medium">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column is-10 has-text-centered">
-          <h1 class="title is-1 publication-title">PAN-AQI: A Panoramic Dataset and Framework for Urban Air Quality Estimation.</h1>
-
-          <div class="publication-meta">
-              <div class="publication-authors">
-                <a class="author-link" href="https://github.com/Shah-Ansh" target="_blank" rel="noopener">Ansh Jalpenkumar Shah</a>
-                <span class="author-sep">·</span>
-                <a class="author-link" href="https://omkathalkar.github.io/" target="_blank" rel="noopener">Om Rajendra Kathalkar</a>
-                <span class="author-sep">·</span>
-                <a class="author-link" href="https://faculty.iiit.ac.in/~sachin.c/" target="_blank" rel="noopener">Dr. Sachin Chaudhari</a>
-                <span class="author-sep">·</span>
-                <a class="author-link" href="https://faculty.iiit.ac.in/~anoop/" target="_blank" rel="noopener">Dr. Anoop Namboodiri</a>
-              </div>
-
-              <div class="publication-affiliation">Signal Processing and Communication Research Center (SPCRC) &amp; CVIT — International Institute of Information Technology, Hyderabad</div>
-
-          </div>
-
-          <div class="publication-links hero-actions">
-            <a href="https://github.com/Shah-Ansh/PAN-AQI-Panoramic-Air-Quality-Index-Dataset/" target="_blank" rel="noopener" class="button is-medium is-rounded is-dark">Sample Dataset</a>
-            <a href="#resources" class="button is-medium is-rounded is-light">Figures</a>
-            <a href="#" class="button is-medium is-rounded">Code (coming)</a>
-          </div>
-        </div>
-      </div>
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="#top">PAN-AQI</a>
+    <div class="nav-links">
+      <a href="#abstract">Abstract</a>
+      <a href="#introduction">Introduction</a>
+      <a href="#related-work">Related Work</a>
+      <a href="#dataset">Dataset</a>
+      <a href="#architecture">Methodology</a>
+      <a href="#results">Results</a>
+      <a href="#result-figures">Result Figures</a>
+      <a href="#conclusion">Conclusion</a>
     </div>
   </div>
-</section>
+</nav>
 
-<section class="section section-abstract" id="abstract">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-10">
-        <div class="abstract-shell">
-          <p class="section-kicker">Abstract</p>
-          <h2 class="title is-3">Abstract</h2>
-          <div class="content has-text-justified abstract-text">
-            <p>
-              Image-based air quality estimation offers a scalable alternative to sparse sensor-based monitoring. However, existing methods rely on narrow field-of-view imagery and overlook both the spatial structure of panoramic scenes and the ordinal nature of Air Quality Index prediction. To address these limitations, PAN-AQI introduces a large-scale dataset comprising 33,982 panoramic 360° street-view images collected over 1,000 km across the twin city of Hyderabad and Secunderabad, India, with co-located PM2.5, PM10, temperature, and humidity measurements. The paper further proposes PANQIFormer, a multimodal transformer framework that jointly models panoramic visual context and environmental metadata for AQI estimation. The architecture combines spatial-zone reasoning, attention-based multimodal fusion, and ordinal-aware learning to perform both AQI category classification and continuous AQI regression. Experiments demonstrate consistent improvements over previous image-based AQI methods across both tasks, while ablation studies show that panoramic coverage, spatial reasoning, and multimodal fusion each contribute substantially to performance. Together, PAN-AQI and PANQIFormer establish panoramic sensing as a promising direction for scalable vision-based air-quality monitoring.
-            </p>
-          </div>
-        </div>
-      </div>
+<!-- HERO -->
+<header class="hero">
+  <div class="container hero-content">
+    <!-- <div class="hero-venue">IEEE Conference Paper &nbsp;·&nbsp; IIIT–Hyderabad</div> -->
+    <h1>PAN-AQI: A Panoramic Dataset and Framework for Urban Air Quality Estimation</h1>
+    <!-- <p class="hero-tagline">33,982 panoramic images &nbsp;·&nbsp; 1,000 km &nbsp;·&nbsp; Hyderabad &amp; Secunderabad &nbsp;·&nbsp; PANQIFormer</p> -->
+
+    <div class="author-row">
+      <a href="https://github.com/Shah-Ansh" target="_blank" rel="noopener">Ansh Shah</a>
+      <a href="https://omkathalkar.github.io/" target="_blank" rel="noopener">Om Kathalkar</a>
+      <a href="https://faculty.iiit.ac.in/~sachin.c/" target="_blank" rel="noopener">Sachin Chaudhari</a>
+      <a href="https://faculty.iiit.ac.in/~anoop/" target="_blank" rel="noopener">Anoop Namboodiri</a>
+    </div>
+
+    <p class="affiliation"><a href="https://spcrc.iiit.ac.in/">SPCRC</a> &amp;<a href="https://cvit.iiit.ac.in/"> CVIT</a>, International Institute of Information Technology, Hyderabad</p>
+
+    <div class="cta-row">
+      <a href="https://github.com/Shah-Ansh/PAN-AQI-Panoramic-Air-Quality-Index-Dataset/" target="_blank" rel="noopener" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.66-.22.66-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85 0 1.71.11 2.5.34 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.16.58.67.48A10.01 10.01 0 0 0 22 12c0-5.52-4.48-10-10-10z"/></svg>
+        Sample Dataset
+      </a>
+      <a href="#architecture" class="btn btn-outline">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Methodology
+      </a>
+      <a href="#results" class="btn btn-outline">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        Results
+      </a>
+      <span class="btn btn-ghost">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+        Code (coming soon)
+      </span>
     </div>
   </div>
-</section>
+</header>
 
-<section class="section section-resources" id="resources">
-  <div class="container is-max-desktop">
-    <nav id="section-toc" aria-label="Section navigation">
-      <a href="#abstract" class="toc-link" data-target="abstract">Abstract</a>
-      <a href="#resources" class="toc-link" data-target="resources">Figures</a>
-    </nav>
-    <div class="section-heading has-text-centered">
-      <h2 class="title is-3">Architecure, Attention Maps & More</h2>
-    </div>
-
-    <div class="columns is-variable is-6 is-multiline">
-      <div class="column is-12">
-        <div class="figure-shell figure-shell-architecture">
-          <img class="architecture-diagram" src="./resources/images/architecture_diagram-1.png" alt="Architecture placeholder">
-          <p class="figure-caption">Architecture diagram</p>
-        </div>
-      </div>
-    </div>
-    </div>
-
-    <div class="columns is-variable is-6 is-multiline">
-      <div class="column is-12">
-        <div class="figure-shell figure-shell-sample">
-          <img class="sample-dataset-image" src="./resources/images/pano.jpg" alt="Architecture placeholder">
-          <p class="figure-caption">Sample dataset image</p>
-        </div>
-      </div>
-    </div>
-    </div>
-
-        <div class="columns is-variable is-6 is-multiline">
-      <div class="column is-12">
-        <div class="figure-shell">
-          <img src="./resources/images/merged_gradcam.png" alt="Poster placeholder">
-          <p class="figure-caption">Gradcam</p>
-        </div>
-      </div>
-    </div>
-
-    
-    <div class="columns">
-        <div class="column is-6">
-            <div class="figure-shell">
-                <img src="./resources/images/setup_diagram-1.png" alt="Setup placeholder">
-                <p class="figure-caption">Setup diagram</p>
-            </div>
-        </div>
-
-        <div class="column is-6">
-            <div class="figure-shell">
-            <img src="./resources/images/dataset_diagram-1.png" alt="Attention placeholder">
-            <p class="figure-caption">Dataset Distribution</p>
-            </div>
-        </div>
-    </div>
-  </div>
-</section>
-
-
-
-<footer class="footer">
+<!-- ABSTRACT -->
+<section id="abstract">
   <div class="container">
-    <div class="content has-text-centered">
-      <p>Built from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> template and adapted for the PAN-AQI release page.</p>
+    <div class="section-header">
+      <span class="kicker">Abstract</span>
+      <h2>Scalable Air Quality Monitoring from Panoramic Vision</h2>
     </div>
+    <div class="abstract-card">
+      <p class="abstract-text">
+        Image-based air quality estimation offers a scalable alternative to sparse sensor-based monitoring. However, existing methods rely on narrow field-of-view imagery and overlook both the spatial structure of panoramic scenes and the ordinal nature of Air Quality Index prediction. To address these limitations, PAN-AQI introduces a large-scale dataset comprising 33,982 panoramic 360° street-view images collected over 1,000 km across the twin cities of Hyderabad and Secunderabad, India, with co-located PM<sub>2.5</sub>, PM<sub>10</sub>, temperature, and humidity measurements. The paper further proposes PANQIFormer, a multimodal transformer framework that jointly models panoramic visual context and environmental metadata for AQI estimation. The architecture combines spatial-zone reasoning, attention-based multimodal fusion, and ordinal-aware learning to perform both AQI category classification and continuous AQI regression. Experiments demonstrate consistent improvements over previous image-based AQI methods across both tasks, while ablation studies show that panoramic coverage, spatial reasoning, and multimodal fusion each contribute substantially to performance.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- INTRODUCTION -->
+<section id="introduction" class="section-stack-tight">
+  <div class="container">
+    <div class="section-header">
+      <span class="kicker">Introduction</span>
+      <h2>Why Full-Panorama AQI Estimation Matters</h2>
+      <p class="section-lead">The paper frames PAN-AQI around a practical monitoring gap: reference stations are sparse, low-cost sensors drift under changing weather, and narrow-angle imagery misses much of the atmospheric context visible in a full 360-degree scene.</p>
+    </div>
+    <div class="paper-grid paper-grid-2">
+      <article class="paper-card">
+        <h3>Problem Setting</h3>
+        <p>Air pollution remains a major public-health concern, and AQI provides a standardised 0-500 scale for communicating air quality. In the Hyderabad-Secunderabad corridor, the paper notes both a heavy PM2.5 burden and limited reference-station coverage, which makes spatially dense monitoring difficult.</p>
+        <p>Imagery is attractive because it directly captures haze, sky discoloration, and exhaust plumes, but prior work typically relies on rectilinear front-facing views that cover only a narrow azimuth and ignore the rest of the scene.</p>
+      </article>
+      <article class="paper-card">
+        <h3>Gaps Identified</h3>
+        <ul class="paper-bullets">
+          <li>Single-view images fail to preserve the full panoramic atmosphere surrounding the vehicle.</li>
+          <li>Most prior AQI models treat band prediction as an unordered classification task, despite the ordinal nature of AQI categories.</li>
+          <li>No public panoramic AQI dataset was available before PAN-AQI.</li>
+        </ul>
+        <p style="margin-top:14px;">The paper is organised to address these gaps in order: dataset design, multimodal architecture, experimental validation, and concluding directions.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- RELATED WORK -->
+<section id="related-work" style="padding-top: 0; padding-bottom: 48px; background: var(--paper);">
+  <div class="container">
+    <div class="section-header">
+      <span class="kicker">Related Work</span>
+      <h2>Prior Image-Based AQI Methods and Transformer Features</h2>
+      <p class="section-lead">The paper positions PAN-AQI at the intersection of image-based pollution estimation and self-supervised transformer representations, arguing that both panoramas and ordinal-aware learning are needed for reliable AQI estimation.</p>
+    </div>
+    <div class="paper-grid paper-grid-2">
+      <article class="paper-card">
+        <h3>Image-Based AQI Estimation</h3>
+        <p>Earlier methods use scene brightness, colour saturation, traffic imagery, multi-view captures, or weather-aware models to estimate PM and AQI. The paper highlights Liu, Mondal, Kow, Kalajdjieski, Zhang, Nilesh, TRAQID, and AQIFormer as representative directions.</p>
+        <p>Across these methods, the recurring limitations are narrow field-of-view inputs, incomplete environmental coverage, and a classification framing that does not fully respect AQI ordering.</p>
+      </article>
+      <article class="paper-card">
+        <h3>Transformer-Based Representation Learning</h3>
+        <p>The paper relies on ViT-style patch tokenisation and the DINO/DINOv3 family to preserve long-range spatial dependencies while avoiding heavy task-specific training. This is a natural fit for PAN-AQI, where the dataset is modest relative to large-scale pretraining corpora.</p>
+        <p>Accordingly, the backbone is frozen and only the fusion components and task heads are trained, which helps preserve the pre-trained feature manifold while adapting the model to AQI estimation.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- KEY CONTRIBUTIONS -->
+<section id="contributions" class="section-stack-tight">
+  <div class="container">
+    <div class="section-header">
+      <span class="kicker">Key Contributions</span>
+      <h2>What PAN-AQI Adds to the Literature</h2>
+      <p class="section-lead">These points are distilled directly from the paper’s abstract, introduction, methodology, and results, and they frame the rest of the page for a reviewer-oriented read.</p>
+    </div>
+    <div class="contrib-list compact">
+      <div class="contrib-item">
+        <div class="contrib-num">1</div>
+        <div class="contrib-body">
+          <h3>PAN-AQI Dataset</h3>
+          <p>The paper introduces a 33,982-sample panoramic dataset collected over roughly 1,000 km in Hyderabad and Secunderabad, with co-located PM2.5, PM10, temperature, and humidity readings.</p>
+        </div>
+      </div>
+      <div class="contrib-item">
+        <div class="contrib-num">2</div>
+        <div class="contrib-body">
+          <h3>PANQIFormer Architecture</h3>
+          <p>PANQIFormer jointly models panoramic visual context and environmental metadata through spatial-zone representation, multimodal fusion, and ordinal-aware prediction heads.</p>
+        </div>
+      </div>
+      <div class="contrib-item">
+        <div class="contrib-num">3</div>
+        <div class="contrib-body">
+          <h3>Comprehensive Evaluation</h3>
+          <p>Experiments show 88.9% accuracy, 87.3% macro F1, and 10.45 MAE, with 97.4% agreement between regression and classification heads and ablations supporting the value of panorama, spatial reasoning, and multimodal fusion.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATASET -->
+<section id="dataset">
+  <div class="container">
+    <div class="section-header">
+      <span class="kicker">Dataset</span>
+      <h2>The PAN-AQI Dataset</h2>
+      <p class="section-lead">PAN-AQI is the primary resource used for training and evaluation in the paper. It consists of equirectangular panoramic images collected in motion across the Hyderabad-Secunderabad road network, each paired with time-aligned weather and air-quality metadata.</p>
+    </div>
+
+    <figure class="pano-wrap" style="margin-bottom:24px;">
+      <img src="./resources/images/pano.jpg" alt="Sample equirectangular panoramic image from PAN-AQI dataset" loading="lazy">
+      <div class="pano-label">Sample 360° equirectangular panorama — collected at 3,840 × 1,036 px, resized to 224 × 672 px for model input</div>
+    </figure>
+
+    <div class="section-header section-header-tight">
+      <span class="kicker">Dataset Figures</span>
+      <h2 class="section-title-sm">Data Collection Setup &amp; Dataset Distribution</h2>
+    </div>
+
+    <div class="paper-card" style="margin-bottom: 24px;">
+      <p>The collection platform combines the iHub Bodhayan electric SUV, a roof-mounted Insta360 X4 panoramic camera at 2.1 m, a Nova SDS011 particulate sensor, an AHT10 temperature-humidity sensor, and an Aeroqual S500 reference unit for validation. The paper reports 23 collection days from December 2024 to August 2025, daytime-only capture, and a seasonal spread of Summer, Monsoon, and Winter samples.</p>
+      <p style="margin-bottom:0;">Pre-processing follows the paper’s CPCB-based AQI computation, using the maximum sub-index across PM2.5 and PM10 after spike removal by seasonal 1.5 IQR filtering.</p>
+    </div>
+
+    <div class="setup-grid" style="margin-bottom: 32px;">
+      <figure class="setup-img-wrap">
+        <img src="./resources/images/setup_diagram-1.png" alt="iHub Bodhayan data collection vehicle setup diagram" loading="lazy">
+        <figcaption>Data collection setup — Insta360 X4 panoramic camera + Nova SDS011 PM sensor on iHub Bodhayan EV</figcaption>
+      </figure>
+      <figure class="setup-img-wrap">
+        <img src="./resources/images/dataset_diagram-1.png" alt="PAN-AQI dataset distribution across AQI bands" loading="lazy">
+        <figcaption>AQI class and seasonal distribution across the 33,982-sample corpus</figcaption>
+      </figure>
+    </div>
+
+    <div class="dataset-grid">
+      <div class="info-card">
+        <h3>Collection Setup</h3>
+        <ul>
+          <li><span>Platform</span> <strong>iHub Bodhayan EV (IIIT-H)</strong></li>
+          <li><span>Camera</span> <strong>Insta360 X4 @ 2.1 m height</strong></li>
+          <li><span>PM sensor</span> <strong>Nova SDS011 (1 Hz, UART)</strong></li>
+          <li><span>Weather</span> <strong>AHT10 (temp + humidity)</strong></li>
+          <li><span>Reference</span> <strong>Aeroqual S500 (validation)</strong></li>
+          <li><span>Resolution</span> <strong>10,560 × 5,280 → 224 × 672 px</strong></li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3>Campaign Statistics</h3>
+        <ul>
+          <li><span>Total samples</span> <strong>33,982</strong></li>
+          <li><span>Collection days</span> <strong>23 (Dec 2024 – Aug 2025)</strong></li>
+          <li><span>Route length</span> <strong>∼1,000 km</strong></li>
+          <li><span>AQI range</span> <strong>8.4 – 434.7 (median 97.1)</strong></li>
+          <li><span>Temp range</span> <strong>25.3°C – 57.1°C</strong></li>
+          <li><span>Humidity</span> <strong>20.6% – 100.0%</strong></li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3>Seasonal Distribution</h3>
+        <div class="season-row">
+          <div class="season-item">
+            <div class="s-head"><span>Summer</span><strong>16,292 &nbsp;(47.9%)</strong></div>
+            <div class="s-bar-bg"><div class="s-bar-fill" style="width:47.9%;background:#e8b820;"></div></div>
+          </div>
+          <div class="season-item">
+            <div class="s-head"><span>Monsoon</span><strong>10,458 &nbsp;(30.8%)</strong></div>
+            <div class="s-bar-bg"><div class="s-bar-fill" style="width:30.8%;background:#2d9c4a;"></div></div>
+          </div>
+          <div class="season-item">
+            <div class="s-head"><span>Winter</span><strong>7,232 &nbsp;(21.3%)</strong></div>
+            <div class="s-bar-bg"><div class="s-bar-fill" style="width:21.3%;background:#1a56e8;"></div></div>
+          </div>
+        </div>
+        <p style="font-size:.8rem;color:var(--ink-3);margin-top:10px;">Mean AQI: Winter 220.9 &nbsp;·&nbsp; Summer 119.0 &nbsp;·&nbsp; Monsoon 58.6</p>
+      </div>
+      <div class="info-card">
+        <h3>AQI Class Distribution</h3>
+        <div class="aqi-bands" title="Class distribution across 5 AQI bands">
+          <div class="band band-good">36%</div>
+          <div class="band band-sat">31%</div>
+          <div class="band band-mod">16%</div>
+          <div class="band band-poor">11%</div>
+          <div class="band band-vpoor">6%</div>
+        </div>
+        <div class="band-labels">
+          <span>Good</span><span>Satisfactory</span><span>Moderate</span><span>Poor</span><span>VP+</span>
+        </div>
+        <p style="font-size:.8rem;color:var(--ink-3);margin-top:12px;">5 classes (Severe merged into VP+). Imbalance ratio 5.85×. Inverse-frequency weighting applied in training.</p>
+      </div>
+    </div>
+
+    <!-- Dataset comparison table -->
+    <div class="section-header section-header-tight">
+      <span class="kicker">Comparison</span>
+      <h2 class="section-title-sm">How PAN-AQI Compares</h2>
+    </div>
+    <div class="dataset-compare-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Dataset / Method</th>
+            <th>Panoramic</th>
+            <th>Multi-view</th>
+            <th>Co-located PM</th>
+            <th>Multi-season</th>
+            <th># Samples</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Mondal et al.</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td>1,818</td></tr>
+          <tr><td>Liu et al.</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">—</td><td>6,587</td></tr>
+          <tr><td>Kow et al.</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">—</td><td>3,549</td></tr>
+          <tr><td>Kalajdjieski et al.</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td>1,000</td></tr>
+          <tr><td>Nilesh et al.</td><td class="cross">✗</td><td class="cross">✗</td><td class="check">✓</td><td class="check">✓</td><td>5,048</td></tr>
+          <tr><td>TRAQID (Kathalkar et al.)</td><td class="cross">✗</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td>26,678</td></tr>
+          <tr class="ours"><td>PAN-AQI <strong>(Ours)</strong></td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td><strong>33,982</strong></td></tr>
+        </tbody>
+      </table>
+      <p class="dataset-caption">PAN-AQI is the only dataset satisfying all four criteria simultaneously.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="container">
+    <div class="section-header">
+      <span class="kicker">Methodology</span>
+      <h2>PANQIFormer Architecture</h2>
+      <p class="section-lead">The paper describes PANQIFormer as a three-stage framework: visual encoding with spatial-zone pooling, multimodal fusion via a fusion transformer, and dual prediction heads for AQI regression and classification.</p>
+    </div>
+
+    <div class="arch-steps">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Visual Encoding + Spatial Zone Pooling</h3>
+        <p>A DINOv3 ViT-B/16 backbone processes 224 × 672 panoramas into patch embeddings, together with a CLS token and register tokens. The register tokens are discarded, and the remaining patches are grouped into a fixed 6 × 3 spatial layout so the model preserves coarse scene structure across sky, mid-field, and ground regions.</p>
+        <div class="tag-row">
+          <span class="tag tag-blue">DINOv3 ViT-B/16</span>
+          <span class="tag">6×3 Zone Grid</span>
+          <span class="tag">μ ∥ σ pooling</span>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>Metadata Encoding &amp; Fusion Transformer</h3>
+        <p>Temperature, humidity, and cyclic temporal encodings form the metadata stream. The visual tokens, zone descriptors, and metadata token are jointly processed through the fusion transformer so the model can reason across imagery and sensor context.</p>
+        <div class="tag-row">
+          <span class="tag tag-blue">Cyclic Encoding</span>
+          <span class="tag">MetaGate</span>
+          <span class="tag">Cross-modal Attention</span>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>Shared Trunk + Dual Prediction Heads</h3>
+        <p>The shared latent representation feeds a regression head for continuous AQI estimation and an ordinal classification head for band prediction. The paper reports that this dual-head setup improves both task consistency and overall accuracy.</p>
+        <div class="tag-row">
+          <span class="tag tag-blue">CORAL Ordinal</span>
+          <span class="tag">RPS Loss</span>
+          <span class="tag">Smooth L1</span>
+        </div>
+      </div>
+    </div>
+
+    <figure class="arch-img-wrap">
+      <img src="./resources/images/architecture_diagram-1.png" alt="PANQIFormer full architecture diagram" loading="lazy">
+      <figcaption>Fig. 3 — PANQIFormer architecture: panoramic visual encoder with spatial zone pooling, metadata integration, fusion transformer, and dual-head prediction.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results">
+  <div class="container">
+    <div class="section-header">
+      <span class="kicker">Results</span>
+      <h2>Comparison with Prior Methods</h2>
+      <p class="result-summary">The paper reports that PANQIFormer outperforms the strongest prior method, AQIFormer, by 5.2% in accuracy, 6.1% in macro F1-score, and 11.14 MAE, while also maintaining a 97.4% agreement between its classification and regression heads.</p>
+    </div>
+
+    <div class="results-layout">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Acc ↑</th>
+              <th>F1 ↑</th>
+              <th>MAE ↓</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Mondal et al.</td><td>64.0</td><td>62.0</td><td>43.98</td></tr>
+            <tr><td>Kalajdjieski et al.</td><td>71.1</td><td>68.4</td><td>32.8</td></tr>
+            <tr><td>AQC-Net (Zhang et al.)</td><td>72.0</td><td>61.0</td><td>28.64</td></tr>
+            <tr><td>Nilesh et al.</td><td>80.0</td><td>76.0</td><td>27.61</td></tr>
+            <tr><td>AQIFormer (Kathalkar et al.)</td><td>83.7</td><td>81.2</td><td>21.59</td></tr>
+            <tr class="highlight-row"><td>PANQIFormer <strong>(Ours)</strong></td><td>88.9</td><td>87.3</td><td>10.45</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="metric-cards">
+        <div class="metric-card">
+          <div class="m-label">Classification Accuracy</div>
+          <div class="m-val">88.9<span style="font-size:1.2rem;color:var(--ink-3);">%</span></div>
+          <div class="m-delta">▲ +5.2% vs. AQIFormer</div>
+        </div>
+        <div class="metric-card">
+          <div class="m-label">Macro F1-Score</div>
+          <div class="m-val">87.3<span style="font-size:1.2rem;color:var(--ink-3);">%</span></div>
+          <div class="m-delta">▲ +6.1% vs. AQIFormer</div>
+        </div>
+        <div class="metric-card">
+          <div class="m-label">Regression MAE</div>
+          <div class="m-val">10.45</div>
+          <div class="m-delta">▼ −11.14 vs. AQIFormer</div>
+          <div class="m-note">AQI units (scale 0–500)</div>
+        </div>
+        <div class="metric-card">
+          <div class="m-label">Head Agreement</div>
+          <div class="m-val">97.4<span style="font-size:1.2rem;color:var(--ink-3);">%</span></div>
+          <div class="m-note">Classification ↔ Regression consistency</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULT FIGURES -->
+<section id="result-figures">
+  <div class="container">
+    <div class="section-header">
+      <span class="kicker">Result Figures</span>
+      <h2>Patch Similarity to CLS Map and UMAP</h2>
+      <p class="section-lead">The paper highlights that the learned representation is consistent across heads and visually separable in embedding space, which is why the result figures include both the CLS-map attention view and a UMAP projection of the learned features.</p>
+    </div>
+    <div class="figure-pair">
+      <figure class="gradcam-wrap">
+        <img src="./resources/images/merged_gradcam.png" alt="Patch similarity to CLS map from PANQIFormer on panoramic images" loading="lazy">
+        <figcaption>Patch similarity to CLS map — PANQIFormer attends to haze, sky discoloration, and vehicular exhaust cues across the full 360° scene</figcaption>
+      </figure>
+      <figure class="setup-img-wrap">
+        <img src="./resources/images/umap_image.png" alt="UMAP visualization of PANQIFormer feature space" loading="lazy">
+        <figcaption>UMAP projection of learned PANQIFormer embeddings</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ABLATION -->
+<section id="ablation">
+  <div class="container">
+    <div class="section-header">
+      <span class="kicker">Ablation Study</span>
+      <h2>Component-wise Contribution Analysis</h2>
+      <p class="section-lead">The ablation study in the paper demonstrates that performance improves monotonically as field of view expands and that the panoramic representation, zone encoding, metadata, and fusion design all contribute measurably to the final scores.</p>
+    </div>
+    <div class="ablation-grid">
+      <div class="abl-group">
+        <h3>Panoramic Coverage</h3>
+        <div class="abl-row">
+          <div class="abl-name">Single-view (front only)</div>
+          <div class="bar-mini-wrap"><div class="bar-mini-bg"><div class="bar-mini-fill" style="width:95%"></div></div></div>
+          <div class="abl-acc">84.5%</div>
+          <div class="abl-delta">−4.4%</div>
+        </div>
+        <div class="abl-row">
+          <div class="abl-name">Dual-view (front + rear)</div>
+          <div class="bar-mini-wrap"><div class="bar-mini-bg"><div class="bar-mini-fill" style="width:97%"></div></div></div>
+          <div class="abl-acc">85.9%</div>
+          <div class="abl-delta">−3.0%</div>
+        </div>
+        <div class="abl-row">
+          <div class="abl-name">Four-view</div>
+          <div class="bar-mini-wrap"><div class="bar-mini-bg"><div class="bar-mini-fill" style="width:98%"></div></div></div>
+          <div class="abl-acc">87.0%</div>
+          <div class="abl-delta">−1.9%</div>
+        </div>
+        <div class="abl-row best">
+          <div class="abl-name" style="color:var(--ink);font-weight:600;">Full Panorama (360°)</div>
+          <div class="bar-mini-wrap"><div class="bar-mini-bg"><div class="bar-mini-fill best-bar" style="width:100%"></div></div></div>
+          <div class="abl-acc">88.9%</div>
+          <div class="abl-delta" style="color:var(--good);">—</div>
+        </div>
+        <p style="font-size:.8rem;color:var(--ink-3);margin-top:10px;">Performance improves monotonically with FOV. Multi-view aggregation cannot reconstruct the continuous context of a unified panorama.</p>
+      </div>
+
+      <div class="abl-group">
+        <h3>Architectural Components</h3>
+        <div class="abl-row">
+          <div class="abl-name">ResNet-50 backbone</div>
+          <div class="bar-mini-wrap"><div class="bar-mini-bg"><div class="bar-mini-fill" style="width:92%"></div></div></div>
+          <div class="abl-acc">82.6%</div>
+          <div class="abl-delta">−6.3%</div>
+        </div>
+        <div class="abl-row">
+          <div class="abl-name">Without zone encoding</div>
+          <div class="bar-mini-wrap"><div class="bar-mini-bg"><div class="bar-mini-fill" style="width:95%"></div></div></div>
+          <div class="abl-acc">84.8%</div>
+          <div class="abl-delta">−4.1%</div>
+        </div>
+        <div class="abl-row">
+          <div class="abl-name">Concatenation fusion</div>
+          <div class="bar-mini-wrap"><div class="bar-mini-bg"><div class="bar-mini-fill" style="width:94%"></div></div></div>
+          <div class="abl-acc">84.0%</div>
+          <div class="abl-delta">−4.9%</div>
+        </div>
+        <div class="abl-row">
+          <div class="abl-name">MLP fusion</div>
+          <div class="bar-mini-wrap"><div class="bar-mini-bg"><div class="bar-mini-fill" style="width:93%"></div></div></div>
+          <div class="abl-acc">83.4%</div>
+          <div class="abl-delta">−5.5%</div>
+        </div>
+        <div class="abl-row">
+          <div class="abl-name">Mean-only zone pooling</div>
+          <div class="bar-mini-wrap"><div class="bar-mini-bg"><div class="bar-mini-fill" style="width:98%"></div></div></div>
+          <div class="abl-acc">87.7%</div>
+          <div class="abl-delta">−1.2%</div>
+        </div>
+        <div class="abl-row">
+          <div class="abl-name">Without metadata</div>
+          <div class="bar-mini-wrap"><div class="bar-mini-bg"><div class="bar-mini-fill" style="width:98%"></div></div></div>
+          <div class="abl-acc">87.8%</div>
+          <div class="abl-delta">−1.1%</div>
+        </div>
+        <div class="abl-row best">
+          <div class="abl-name" style="color:var(--ink);font-weight:600;">PANQIFormer (full)</div>
+          <div class="bar-mini-wrap"><div class="bar-mini-bg"><div class="bar-mini-fill best-bar" style="width:100%"></div></div></div>
+          <div class="abl-acc">88.9%</div>
+          <div class="abl-delta" style="color:var(--good);">—</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCLUSION -->
+<section id="conclusion" class="section-stack-more">
+  <div class="container">
+    <div class="section-header">
+      <span class="kicker">Conclusion</span>
+      <h2>Summary and Takeaway</h2>
+      <p class="section-lead">The paper concludes that panoramic sensing is a stronger representation for vision-based environmental monitoring than conventional perspective imagery, and that PAN-AQI can serve as a benchmark for future image-driven AQI research.</p>
+    </div>
+    <div class="paper-grid paper-grid-2">
+      <article class="paper-card">
+        <h3>Main Takeaway</h3>
+        <p>PAN-AQI is presented as the first large-scale panoramic dataset for image-based AQI estimation in India, and PANQIFormer as a multimodal transformer that jointly models panoramic visual context and environmental metadata.</p>
+        <p>The experimental evidence in the paper indicates that preserving full 360-degree context, adding explicit spatial reasoning, and using attention-based multimodal fusion all materially improve performance.</p>
+      </article>
+      <article class="paper-card">
+        <h3>Limitations and Future Directions</h3>
+        <p>The paper acknowledges that the collection excludes nighttime samples, which is a limitation for generalisation. It points to this gap as a direction for future work alongside broader benchmark use.</p>
+        <p>The overall message is that panoramic AQI estimation is not just a stronger benchmark setting, but a more faithful modelling choice for urban air-quality monitoring.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p class="footer-brand"><strong>PAN-AQI</strong> &nbsp;·&nbsp; SPCRC &amp; CVIT, IIIT Hyderabad</p>
+    <p>Ansh Shah · Om Kathalkar · Sachin Chaudhari · Anoop Namboodiri</p>
+    <p class="footer-credit">
+      Page adapted from the <a href="https://github.com/nerfies/nerfies.github.io" target="_blank" rel="noopener">Nerfies</a> template.
+    </p>
   </div>
 </footer>
-<button id="backToTop" class="back-to-top" aria-label="Back to top">⬆</button>
+
+<button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top">↑</button>
+
+<script src="./static/js/pan-aqi.js" defer></script>
 
 </body>
 </html>

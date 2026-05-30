@@ -287,6 +287,38 @@ body {
   object-fit: contain;
 }
 
+/* Enlarge only the architecture diagram without affecting other figures */
+.figure-shell img.architecture-diagram {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Let the main architecture figure use a wider viewport-centered card */
+.figure-shell.figure-shell-architecture {
+  width: min(1200px, calc(100vw - 4rem));
+  max-width: none;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+/* Keep sample dataset image smaller than other figures */
+.figure-shell img.sample-dataset-image {
+  width: 100%;
+  height: auto;
+}
+
+/* Make sample dataset card proportional instead of content-expanding */
+.figure-shell.figure-shell-sample {
+  width: min(80%, 1100px);
+  max-width: none;
+}
+
+.figure-shell.figure-shell-sample img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
 /* Ensure all image containers center their content consistently */
 .resource-item, .abstract-shell, .figure-shell, .column {
   display: flex;
@@ -408,5 +440,15 @@ body {
   .abstract-shell img {
     width: 100%;
     max-width: 100%;
+  }
+
+  .figure-shell.figure-shell-sample {
+    width: 100%;
+  }
+
+  .figure-shell.figure-shell-architecture {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
